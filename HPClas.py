@@ -15,7 +15,7 @@ import prediction
 
 
 if __name__ == "__main__":
-    # HPClas
+    # HPClas，设置程序参数，包含预测模式和测试模式、读取文件名输出文件名、阈值等
 
     warnings.filterwarnings("ignore")
     parser = argparse.ArgumentParser(description='generate feature')
@@ -30,7 +30,7 @@ if __name__ == "__main__":
     if args.type=="benchmark":
         prediction.prediction()
     else:
-        featureGenerator.generator(fasta_file=args.fasta_file, output_name=args.output_name)
+        featureGenerator.generator(fasta_file=args.fasta_file, output_name=args.output_name)#生成特征文件
         prediction.prediction(output_name=args.output_name,threshold=args.threshold)
 
 

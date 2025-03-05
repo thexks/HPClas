@@ -30,13 +30,13 @@ def CKSAAP(fastas, gap=3, **kw):
     AA = kw['order'] if kw['order'] != None else 'ACDEFGHIKLMNPQRSTVWY'
     encodings = []
     aaPairs = []
-    for aa1 in AA:
+    for aa1 in AA:#生成所有可能的氨基酸对
         for aa2 in AA:
             aaPairs.append(aa1 + aa2)
     header = ['#']
     for g in range(gap + 1):
         for aa in aaPairs:
-            header.append(aa + '.gap' + str(g))
+            header.append(aa + '.gap' + str(g))#生成特征名称
     encodings.append(header)
     for i in fastas:
         name, sequence = i[0], i[1]
@@ -50,10 +50,10 @@ def CKSAAP(fastas, gap=3, **kw):
                 index2 = index1 + g + 1
                 if index1 < len(sequence) and index2 < len(sequence) and sequence[index1] in AA and sequence[
                     index2] in AA:
-                    myDict[sequence[index1] + sequence[index2]] = myDict[sequence[index1] + sequence[index2]] + 1
-                    sum = sum + 1
+                    myDict[sequence[index1] + sequence[index2]] = myDict[sequence[index1] + sequence[index2]] + 1 # 统计该氨基酸对的出现次数
+                    sum = sum + 1# 统计有效对的总数
             for pair in aaPairs:
-                code.append(myDict[pair] / sum)
+                code.append(myDict[pair] / sum)#归一化
         encodings.append(code)
     return encodings
 

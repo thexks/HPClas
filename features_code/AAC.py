@@ -10,13 +10,13 @@ def AAC(fastas, **kw):
 	header = ['#']
 	for i in AA:
 		header.append(i)
-	encodings.append(header)
+	encodings.append(header)#生成表头
 
 	for i in fastas:
 		name, sequence = i[0], re.sub('-', '', i[1])
 		count = Counter(sequence)
 		for key in count:
-			count[key] = count[key]/len(sequence)
+			count[key] = count[key]/len(sequence)# 计算频率
 		code = [name]
 		for aa in AA:
 			code.append(count[aa])

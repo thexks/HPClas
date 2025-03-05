@@ -10,7 +10,7 @@ def Count(seq1, seq2):
 	return sum
 
 
-def CTDC(fastas, **kw):
+def CTDC(fastas, **kw):# 定义3组氨基酸分类
 	group1 = {
 		'hydrophobicity_PRAM900101': 'RKEDQN',
 		'hydrophobicity_ARGP820101': 'QSTNGDE',
@@ -58,21 +58,21 @@ def CTDC(fastas, **kw):
 	}
 
 	groups = [group1, group2, group3]
-	property = (
+	property = (# 13种物化性质
 	'hydrophobicity_PRAM900101', 'hydrophobicity_ARGP820101', 'hydrophobicity_ZIMJ680101', 'hydrophobicity_PONP930101',
 	'hydrophobicity_CASG920101', 'hydrophobicity_ENGD860101', 'hydrophobicity_FASG890101', 'normwaalsvolume',
 	'polarity', 'polarizability', 'charge', 'secondarystruct', 'solventaccess')
 
 	encodings = []
 	header = ['#']
-	for p in property:
+	for p in property:# 特征名称格式：属性.组别
 		for g in range(1, len(groups) + 1):
 			header.append(p + '.G' + str(g))
 	encodings.append(header)
 	for i in fastas:
 		name, sequence = i[0], re.sub('-', '', i[1])
 		code = [name]
-		for p in property:
+		for p in property:# 计算每一个组所占序列的比例
 			c1 = Count(group1[p], sequence) / len(sequence)
 			c2 = Count(group2[p], sequence) / len(sequence)
 			c3 = 1 - c1 - c2
